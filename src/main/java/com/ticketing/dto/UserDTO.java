@@ -2,6 +2,7 @@ package com.ticketing.dto;
 
 import com.ticketing.enums.Gender;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Data
 public class UserDTO {
 
     @NotBlank

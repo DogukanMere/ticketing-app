@@ -1,7 +1,9 @@
 package com.ticketing.converter;
 
 import com.ticketing.dto.UserDTO;
+import com.ticketing.service.UserService;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +11,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationPropertiesBinding
 public class UserDtoConverter implements Converter<String, UserDTO> {
 
+    UserService userService;
+
+    public UserDtoConverter(@Lazy UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public UserDTO convert(String source) {
-        return null;
+        return userService.findByUserName(source);
     }
 }

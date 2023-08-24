@@ -1,30 +1,35 @@
 package com.ticketing.controller;
 
+import com.ticketing.dto.ProjectDTO;
+import com.ticketing.service.ProjectService;
+import com.ticketing.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
 //
-//    ProjectService projectService;
-//    UserService userService;
-//
-//    public ProjectController(ProjectService projectService, UserService userService) {
-//        this.projectService = projectService;
-//        this.userService = userService;
-//    }
-//
-//    @GetMapping("/create")
-//    public String createProject(Model model) {
-//
-//        model.addAttribute("project", new ProjectDTO());
-//        model.addAttribute("projects", projectService.findAll());
-//        model.addAttribute("managers", userService.findManagers());
-//
-//        return "/project/create";
-//
-//    }
+    ProjectService projectService;
+    UserService userService;
+
+    public ProjectController(ProjectService projectService, UserService userService) {
+        this.projectService = projectService;
+        this.userService = userService;
+    }
+
+    @GetMapping("/create")
+    public String createProject(Model model) {
+
+        model.addAttribute("project", new ProjectDTO());
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("managers", userService.listAllByRole("manager"));
+
+        return "/project/create";
+
+    }
 //
 //    @PostMapping("/create")
 //    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO project, BindingResult bindingResult, Model model) {
