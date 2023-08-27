@@ -2,6 +2,7 @@ package com.ticketing.service.impl;
 
 import com.ticketing.dto.ProjectDTO;
 import com.ticketing.entity.Project;
+import com.ticketing.enums.Status;
 import com.ticketing.mapper.ProjectMapper;
 import com.ticketing.repository.ProjectRepository;
 import com.ticketing.service.ProjectService;
@@ -30,7 +31,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void save(ProjectDTO dto) {
-
+        dto.setProjectStatus(Status.OPEN);
+        Project project = projectMapper.convertToEntity(dto);
+        projectRepository.save(project);
     }
 
     @Override
