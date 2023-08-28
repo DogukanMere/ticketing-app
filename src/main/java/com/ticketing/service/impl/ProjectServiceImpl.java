@@ -8,7 +8,6 @@ import com.ticketing.enums.Status;
 import com.ticketing.mapper.ProjectMapper;
 import com.ticketing.mapper.UserMapper;
 import com.ticketing.repository.ProjectRepository;
-import com.ticketing.repository.TaskRepository;
 import com.ticketing.service.ProjectService;
 import com.ticketing.service.TaskService;
 import com.ticketing.service.UserService;
@@ -44,7 +43,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
 
-        UserDTO currentUserDTO = userService.findByUserName("herold@manager.com");
+        UserDTO currentUserDTO = userService.findByUserName("jack@gmail.com");
         User user = userMapper.convertToEntity(currentUserDTO);
         List<Project> list = projectRepository.findAllByAssignedManager(user);
 
