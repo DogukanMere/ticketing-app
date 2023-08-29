@@ -79,7 +79,10 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByProjectCode(code);
 
         project.setIsDeleted(true);
+        project.setProjectCode(project.getProjectCode() + "-" + project.getId());
         projectRepository.save(project);
+
+        taskService.deleteByProject(projectMapper.convertToDto(project));
 
     }
 
@@ -90,6 +93,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectData.setProjectStatus(Status.COMPLETE);
         projectRepository.save(projectData);
+
+        taskService.completeByProject(projectMapper.convertToDto(projectData));
 
     }
 
