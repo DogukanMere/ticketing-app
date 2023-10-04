@@ -11,6 +11,8 @@ import com.ticketing.repository.ProjectRepository;
 import com.ticketing.service.ProjectService;
 import com.ticketing.service.TaskService;
 import com.ticketing.service.UserService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final TaskService taskService;
     private final UserMapper userMapper;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, UserService userService, ProjectMapper projectMapper, TaskService taskService, UserMapper userMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, @Lazy UserService userService, ProjectMapper projectMapper, TaskService taskService, UserMapper userMapper) {
         this.projectRepository = projectRepository;
         this.userService = userService;
         this.projectMapper = projectMapper;
@@ -43,7 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
 
-        UserDTO currentUserDTO = userService.findByUserName("jack@gmail.com");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        UserDTO currentUserDTO = userService.findByUserName(username);
         User user = userMapper.convertToEntity(currentUserDTO);
         List<Project> list = projectRepository.findAllByAssignedManager(user);
 

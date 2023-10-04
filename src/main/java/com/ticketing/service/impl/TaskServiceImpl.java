@@ -10,6 +10,7 @@ import com.ticketing.mapper.TaskMapper;
 import com.ticketing.repository.TaskRepository;
 import com.ticketing.repository.UserRepository;
 import com.ticketing.service.TaskService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -128,7 +129,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDTO> listAllTasksByStatus(Status status) {
-        User loggedInUser = userRepository.findByUserName("jack@gmail.com");
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedInUser = userRepository.findByUserName(username);
         List<Task> list = taskRepository.findAllByTaskStatusAndAssignedEmployee(status, loggedInUser);
         return list.stream().map(taskMapper::convertToDto).collect(Collectors.toList());
     }
