@@ -44,7 +44,11 @@ public class SecurityConfig {
 //                        .requestMatchers("/task/**").hasAnyRole("EMPLOYEE", "ADMIN")
 //                        .requestMatchers("task/**").hasAuthority("ROLE_EMPLOYEE")
                         .requestMatchers("/login", "/", "fragments/**", "/assets/**", "/images/**").permitAll()
-                        .anyRequest().authenticated()).httpBasic(Customizer.withDefaults());
+                        .anyRequest().authenticated()).formLogin((form) -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/welcome")
+                        .failureUrl("/login?error=true").permitAll()
+                ).httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
