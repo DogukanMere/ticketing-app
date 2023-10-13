@@ -8,16 +8,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Spring-16-REST-Jackson" />
-        <module name="ticketing-orm" />
         <module name="Spring-15-REST" />
+        <module name="ticketing-orm" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ticketing-project-rest" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Spring-15-REST" options="-parameters" />
       <module name="Spring-16-REST-Jackson" options="-parameters" />
       <module name="ticketing-orm" options="-parameters" />
+      <module name="ticketing-project-rest" options="-parameters" />
     </option>
   </component>
 </project>
